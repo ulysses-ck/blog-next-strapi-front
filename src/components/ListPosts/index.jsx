@@ -2,8 +2,6 @@
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import React from "react";
 
-export const revalidate = 10;
-
 export default function ListPosts({ posts }) {
   return (
     <section className="flex flex-col items-start gap-4 px-20">

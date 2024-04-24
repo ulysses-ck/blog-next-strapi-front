@@ -1,13 +1,17 @@
 import ListPosts from "@/components/ListPosts";
-import { GetPosts } from "@/graphql/queries/posts";
-import { getClient } from "@/lib/ApolloClient";
 
 export default async function Home() {
-  const { data } = await getClient().query({ query: GetPosts });
+  const result = await fetch(`${process.env.STRAPI_BACKEND_URL}/api/posts`, {
+    headers: {
+      Authorization: `Bearer ${process.env.STRAPI_TOKEN_SECRET}`,
+    },
+  });
+
+  const data = await result.json()
   return (
     <main className="flex flex-col">
       <h1 className="text-2xl text-center">Blog Next.js Strapi</h1>
-      {data && <ListPosts posts={data.posts.data} />}
+      <ListPosts posts={data.data} />
     </main>
   );
 }
